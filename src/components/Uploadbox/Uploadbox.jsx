@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useRef } from 'react';
 
-function uploadbox() {
+
+
+
+function Uploadbox(event) {
+
+  const FormRef = useRef(null);
+
+  
+function handleFileChange() {
+  
+  FormRef.current.submit();
+}
+  
   return (
     <div id="uploaddiv">
       <div id="outerdiv">
@@ -16,14 +28,14 @@ function uploadbox() {
 
         <br />
         <div class="fileUpload btn btn-primary">
-        <form action="http://localhost:3001/upload" method="POST" enctype="multipart/form-data">
+        <form ref={FormRef} action="http://localhost:3001/upload" method="POST" encType="multipart/form-data"   >
 
             <label class="upload">
-              <input type="file" accept=".apk" name="file" />
-           <span id="upbutton"> Upload</span>
+              <input type="file" accept=".apk" name="file" onChange={handleFileChange} />
+           <span id="upbutton">Upload</span>
             </label>
             
-        <button type="submit" id="upbutton" >Submit</button>
+        {/* <button type="submit" id="upbutton" >Submit</button> */}
             </form>
           </div>
       </div>
@@ -31,4 +43,4 @@ function uploadbox() {
   );
 }
 
-export default uploadbox;
+export default Uploadbox;

@@ -1,19 +1,96 @@
-const express = require('express');
-const multer = require('multer');
+const express = require("express");
+const multer = require("multer");
+const fs = require("fs");
+
 const app = express();
+const { exec } = require("child_process");
+
+// configure multer to use the destination folder and keep the original file name
+let AppName;
+const storage = multer.diskStorage({
+  destination: "./uploads",
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+    AppName = file.originalname;
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/upload", upload.single("file"), (req, res) => {
+  console.log("File uploaded successfully!");
+
+  if (AppName!=undefined){
+// ///////////////////////////////////////////////////////
+console.log("cd uploads && ./aapt2 dump badging "+AppName+".apk ");
+    
+
+exec( "cd uploads && ./aapt2 dump badging "+AppName, (a, b, c) => {
+
+
+  var str = b;
+  var res = str.replace(/\s+/g, "");
+  // console.log(res);
+
+  fs.writeFileSync("apk.txt", res);
+
+  var txt = res;
+
+  let data = txt;
+
+
+  {
+
+  let startIndex = data.indexOf("label=") + 7
+
+  let endIndex = data.indexOf("'icon='");
+
+  if (startIndex !== -1 && endIndex !== -1) {
+    let name = data.substring(startIndex, endIndex);
+    console.log("App Name : "+name);
+  } else {
+    console.log("Name not found in data.");
+  }
+
+}
+
+
+{
+
+  let startIndex = data.indexOf("sdkVersion:'") + 12
+
+  let endIndex = data.indexOf("'targetSdkVersion:");
+
+  if (startIndex !== -1 && endIndex !== -1) {
+    let name = data.substring(startIndex, endIndex);
+    console.log("Min SDK Version : "+name);
+  } else {
+    console.log("Min SDK not found in data.");
+  }
+
+}
+
+});
+
+
+
+    
+    // ///////////////////////////////////////////////////
+    
+    
+  }else{
+ 
+  }
+  // delete file named 'sample.txt' 
+});
+
+
+
 
 const port = 3001; // or any port you prefer
-
-
-
-
-const upload = multer({ dest: 'upload/' }); // specify the directory where uploaded files will be stored
-app.post('/upload', upload.single('file'), (req, res) => {
-  console.log('File uploaded successfully!');
-  // sace data to db
-  // fs rm
-});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+
