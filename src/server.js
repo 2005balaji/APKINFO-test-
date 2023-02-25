@@ -3,7 +3,7 @@ const multer = require("multer");
 const fs = require("fs");
 
 const app = express();
-const { exec } = require("child_process");
+const {exec} = require("child_process");
 
 // configure multer to use the destination folder and keep the original file name
 let AppName;
@@ -22,7 +22,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
   if (AppName!=undefined){
 // ///////////////////////////////////////////////////////
-console.log("cd uploads && ./aapt2 dump badging "+AppName+".apk ");
+console.log("cd uploads && ./aapt2 dump badging "+AppName);
     
 
 exec( "cd uploads && ./aapt2 dump badging "+AppName, (a, b, c) => {
@@ -30,7 +30,7 @@ exec( "cd uploads && ./aapt2 dump badging "+AppName, (a, b, c) => {
 
   var str = b;
   var res = str.replace(/\s+/g, "");
-  // console.log(res);
+  // console.log(res);t
 
   fs.writeFileSync("apk.txt", res);
 
