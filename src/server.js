@@ -78,7 +78,7 @@ exec("cd uploads && rm "+AppName, (a, b, c) => {
   // })
 
 
-  console.log("File deleted"+ AppName)
+  console.log("File deleted "+ AppName)
 
 })
 
