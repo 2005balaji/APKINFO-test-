@@ -66,24 +66,11 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
 
     
-//removing the APK file
+// //removing the APK file
+// exec("cd uploads && rm "+AppName, (a, b, c) => {
+//   console.log("File deleted "+ AppName)
+// })
 
-exec("cd uploads && rm "+AppName, (a, b, c) => {
-
-  // fs.unlinkSync("vpm.apk" , err=>{
-  //   if (err) {
-  //     console.log(err)
-  //   }
-  
-  // })
-
-
-  console.log("File deleted "+ AppName)
-
-})
-
-
-    
   } else {
   }
   // delete file named 'sample.txt'
