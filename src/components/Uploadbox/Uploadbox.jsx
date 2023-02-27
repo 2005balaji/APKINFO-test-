@@ -28,7 +28,7 @@ function handleFileChange() {
 
         <br />
         <div class="fileUpload btn btn-primary">
-        <form ref={FormRef} action="http://143.110.184.87:3001/upload" method="POST" encType="multipart/form-data"   >
+        <form ref={FormRef} action="http://localhost:3001/upload" method="POST" encType="multipart/form-data"   >
 
             <label class="upload">
               <input type="file" accept=".apk" name="file" onChange={handleFileChange} />

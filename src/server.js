@@ -21,8 +21,9 @@ app.post("/upload", upload.single("file"), (req, res) => {
   console.log("File uploaded successfully!");
 
   if (AppName != undefined) {
+    
     // ///////////////////////////////////////////////////////
-    console.log("cd uploads && ./aapt2 dump badging " + AppName);
+    console.log("Executing cd uploads && ./aapt2 dump badging " + AppName);
 
     exec("cd uploads && ./aapt2 dump badging " + AppName, (a, b, c) => {
       var str = b;
@@ -61,7 +62,27 @@ app.post("/upload", upload.single("file"), (req, res) => {
         }
       }
     });
-    exec(`rm ${AppName}`)
+
+
+
+    
+//removing the APK file
+
+exec("cd uploads && rm "+AppName, (a, b, c) => {
+
+  // fs.unlinkSync("vpm.apk" , err=>{
+  //   if (err) {
+  //     console.log(err)
+  //   }
+  
+  // })
+
+
+  console.log("File deleted"+ AppName)
+
+})
+
+
     
   } else {
   }
@@ -75,3 +96,4 @@ const port = 3001; // or any port you prefer
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
